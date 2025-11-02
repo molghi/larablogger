@@ -11,7 +11,7 @@
             @if ($user_id)
                 <button class="{{config('tailwind.simple_btn_styles')}} bg-indigo-600">Add Post</button>
                 <button class="{{config('tailwind.simple_btn_styles')}} bg-green-600">User Panel</button>
-                <button class="{{config('tailwind.simple_btn_styles')}} bg-gray-700">Log Out</button>
+                <button class="logout-btn {{config('tailwind.simple_btn_styles')}} bg-gray-700">Log Out</button>
             @else 
                 <a href="/login" class="{{config('tailwind.simple_btn_styles')}} bg-blue-600">Login</a>
                 <a href="/signup" class="{{config('tailwind.simple_btn_styles')}} bg-green-600">Sign Up</a>
@@ -19,3 +19,8 @@
         </div>
   </div>
 </header>
+
+<script>
+    // Logout action:
+    document.querySelector('.logout-btn').addEventListener('click', () => location.href = '/logout')
+</script>

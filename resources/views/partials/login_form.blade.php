@@ -1,10 +1,27 @@
-<form class="max-w-sm mx-auto p-6 bg-gray-900 text-white rounded mt-10">
+<form action="{{ route('user.login') }}" method="POST" class="max-w-sm mx-auto p-6 bg-gray-900 text-white rounded mt-10">
 
-  <h2 class="text-2xl mb-4 text-center">Login</h2>
+    @csrf
 
-  <input type="email" placeholder="Email" autofocus class="w-full mb-3 py-2 px-3 rounded text-white bg-black">
+    <h2 class="text-2xl mb-4 text-center">Login</h2>
 
-  <input type="password" placeholder="Password" class="w-full mb-4 py-2 px-3 rounded text-white bg-black">
+    <input name="email" type="email" placeholder="Email" autofocus class="{{ config('tailwind.general_input_styles') }}">
 
-  <button class="w-full bg-blue-600 {{config('tailwind.simple_btn_styles')}}">Sign In</button>
+    <input name="password" type="password" placeholder="Password" class="{{ config('tailwind.general_input_styles') }} mb-4">
+
+    <button class="w-full bg-blue-600 {{config('tailwind.simple_btn_styles')}}">Sign In</button>
+
+    {{-- output possible errors --}}
+
+    @error ('email')
+        <div class="{{ config('tailwind.error_msg_styles') }}">{{ $message }}</div>
+    @enderror
+
+    @error ('password')
+        <div class="{{ config('tailwind.error_msg_styles') }}">{{ $message }}</div>
+    @enderror
+
+    @error ('failed-login')
+        <div class="{{ config('tailwind.error_msg_styles') }}">{{ $message }}</div>
+    @enderror
+
 </form>

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Login | Easy Blogger')
+@section('title', 'Posts | Easy Blogger')
 
 @section('content')
-    @include('partials.login_form')
+    <div>Posts here</div>
     @include('partials.success_msg')
 @endsection

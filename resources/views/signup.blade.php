@@ -4,4 +4,5 @@
 
 @section('content')
     @include('partials.signup_form')
+    @include('partials.success_msg')
 @endsection
