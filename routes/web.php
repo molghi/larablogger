@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,4 +35,22 @@ Route::post('/login', [UserController::class, 'login'])->name('user.login');
 Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 // Show posts
-Route::get('/posts', [PageController::class, 'show_posts'])->middleware('auth');
+Route::get('/posts', [PostController::class, 'index'])->middleware('auth');
+
+// Show add post form
+Route::get('/posts/add', [PageController::class, 'show_add_form'])->middleware('auth');
+
+// Show post
+Route::get('/posts/{id}', [PostController::class, 'show_post'])->middleware('auth');
+
+// Add post
+Route::post('/posts/add', [PostController::class, 'store'])->name('post.add')->middleware('auth');
+
+// Delete post
+Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('post.delete')->middleware('auth');
+
+// Show edit post form
+Route::get('/posts/edit/{id}', [PageController::class, 'show_edit_form'])->middleware('auth');
+
+// Edit/update post
+Route::put('/posts/edit/{id}', [PostController::class, 'update'])->name('post.edit')->middleware('auth');

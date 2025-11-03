@@ -9,7 +9,7 @@
 
         <div class="flex gap-5">
             @if ($user_id)
-                <button class="{{config('tailwind.simple_btn_styles')}} bg-indigo-600">Add Post</button>
+                <a href="/posts/add" class="{{config('tailwind.simple_btn_styles')}} bg-indigo-600">Add Post</a>
                 <button class="{{config('tailwind.simple_btn_styles')}} bg-green-600">User Panel</button>
                 <button class="logout-btn {{config('tailwind.simple_btn_styles')}} bg-gray-700">Log Out</button>
             @else 
