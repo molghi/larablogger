@@ -54,3 +54,12 @@ Route::get('/posts/edit/{id}', [PageController::class, 'show_edit_form'])->middl
 
 // Edit/update post
 Route::put('/posts/edit/{id}', [PostController::class, 'update'])->name('post.edit')->middleware('auth');
+
+// Show user panel
+Route::get('/panel', [PageController::class, 'show_panel'])->middleware('auth');
+
+// Show update name/pw form
+Route::get('/panel/update/{flag}', [PageController::class, 'show_update_form'])->middleware('auth');
+
+// Update username/password
+Route::put('/panel/update/{flag}', [PageController::class, 'update_user'])->middleware('auth');
