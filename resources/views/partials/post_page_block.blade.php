@@ -12,15 +12,17 @@
             @endif 
         </h1>
 
-        <div class="flex gap-4">
-            <a title="Edit post" class="bg-blue-700 {{ config('tailwind.simple_btn_styles') }} opacity-40 hover:opacity-100" href="/posts/edit/{{$post->id}}">Edit</a>
-            <form action="{{ route('post.delete', $post->id) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                {{-- <input type="hidden" value="{{ $post->id }}"> --}}
-                <button onclick="return confirm(`Are you sure you want to delete this post?\n\nThis action cannot be undone.`)" type="submit" title="Delete post" class="bg-red-600 {{ config('tailwind.simple_btn_styles') }} opacity-40 hover:opacity-100">Delete</button>
-            </form>
-        </div>
+        @if ($is_your_post)
+            <div class="flex gap-4">
+                <a title="Edit post" class="bg-blue-700 {{ config('tailwind.simple_btn_styles') }} opacity-40 hover:opacity-100" href="/posts/edit/{{$post->id}}">Edit</a>
+                <form action="{{ route('post.delete', $post->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    {{-- <input type="hidden" value="{{ $post->id }}"> --}}
+                    <button onclick="return confirm(`Are you sure you want to delete this post?\n\nThis action cannot be undone.`)" type="submit" title="Delete post" class="bg-red-600 {{ config('tailwind.simple_btn_styles') }} opacity-40 hover:opacity-100">Delete</button>
+                </form>
+            </div>
+        @endif 
     </div>
 
     <div class="max-w-3xl mx-auto p-6">
@@ -28,7 +30,7 @@
     <!-- Image -->
     @if ($post->cover_image)
         <div class="mb-6 overflow-hidden rounded-lg">
-            <img src="" alt="Post cover" class="w-full object-cover max-h-[450px] transition-transform duration-1000 ease-in-out hover:scale-105 shadow-md">
+            <img src="{{ asset('storage/' . $post->cover_image) }}" alt="Post image cover" class="w-full object-cover max-h-[450px] transition-transform duration-1000 ease-in-out hover:scale-105 shadow-md">
         </div>
     @endif
   

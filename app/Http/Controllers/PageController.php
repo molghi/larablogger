@@ -97,4 +97,12 @@ class PageController extends Controller
     }
 
     // ============================================================
+
+    public function change_view (Request $request) {
+        $new_view = $request['new_view'];
+        session(['view' => $new_view]);
+        return back()->with('success', 'View changed!');
+    }
+
+    // ============================================================
 }

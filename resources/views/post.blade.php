@@ -1,3 +1,7 @@
+@php
+    $is_your_post = $post->user_id === Auth::id();
+@endphp
+
 @extends('layouts.app')
 
 @section('title', "$title | Easy Blogger")

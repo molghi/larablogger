@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\CommentController;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
 
-    private $posts_per_page = 3;
+    private $posts_per_page = 9;
+    
     // ============================================================
 
     public function index () {
@@ -30,17 +32,22 @@ class PostController extends Controller
             'title' => 'nullable|string|max:255',
             'body' => 'required|string',
             'categories' => 'nullable|string',
-            'cover_image' => 'nullable|string',
+            'cover_image' => 'image|nullable',
             'visibility' => 'required|boolean',
         ]);
 
-        if (!$data['title']) {
+        if (empty($data['title'])) {
             $date_now = substr(date('Y-m-d'), 2);
-            $data['title'] = "Journal Entry '$date_now";
+            $weekday_now = date('D');
+            $data['title'] = "Journal Entry '" . $date_now . " ($weekday_now)";
         }
 
         // get user id
         $data['user_id'] = Auth::id();
+
+        // handle img upload
+        $path = $request->file('cover_image')->store('images', 'public');
+        $data['cover_image'] = $path;
 
         // push to db
         Post::create($data);
@@ -59,7 +66,7 @@ class PostController extends Controller
             'title' => 'nullable|string|max:255',
             'body' => 'required|string',
             'categories' => 'nullable|string',
-            'cover_image' => 'nullable|string',
+            'cover_image' => 'image|nullable',
             'visibility' => 'required|boolean',
             'created_at' => 'required|date',
             'id' => 'required|integer'
@@ -67,7 +74,13 @@ class PostController extends Controller
 
         if (!$data['title']) {
             $date_now = substr(date('Y-m-d', strtotime($data['created_at'])), 2);
-            $data['title'] = "Journal Entry '$date_now";
+            $weekday_now = date('D', strtotime($data['created_at']));
+            $data['title'] = "Journal Entry '" . $date_now . " ($weekday_now)";
+        }
+
+        if ($request->file('cover_image')) {
+            $path = $request->file('cover_image')->store('images', 'public');
+            $data['cover_image'] = $path;
         }
 
         unset($data['created_at']);
@@ -84,7 +97,8 @@ class PostController extends Controller
 
         $data = [
             'title' => 'Post Page',
-            'post' => Post::find($post_id)
+            'post' => Post::find($post_id),
+            'comments' => CommentController::get_by_post($post_id)
         ];
 
         return view('post', $data);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -63,3 +64,12 @@ Route::get('/panel/update/{flag}', [PageController::class, 'show_update_form'])-
 
 // Update username/password
 Route::put('/panel/update/{flag}', [PageController::class, 'update_user'])->middleware('auth');
+
+// Add comment
+Route::post('/comments', [CommentController::class, 'store'])->name('comment.add')->middleware('auth');
+
+// Delete comment
+Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comment.delete')->middleware('auth');
+
+// Change view
+Route::get('/posts/view/{new_view}', [PageController::class, 'change_view'])->middleware('auth');

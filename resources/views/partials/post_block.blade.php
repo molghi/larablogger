@@ -4,8 +4,8 @@
     <!-- Cover Image -->
     <div class="hover:opacity-70 transition-all duration-300">
         @if ($post->cover_image)
-            <a href="">
-                <img src="{{ $post->cover_image }}" alt="Cover Image" class="w-full max-h-[250px] rounded-md object-cover h-[200px]">
+            <a href="/posts/{{$post->id}}">
+                <img src="{{ asset('storage/' . $post->cover_image) }}" alt="Post cover image" class="w-full max-h-[250px] rounded-md object-cover min-h-[200px]">
             </a>
         @else
             <a href="/posts/{{$post->id}}" class="block w-full max-h-[250px] min-h-[200px] flex items-center justify-center bg-[#333] rounded-md overflow-hidden no-image">
@@ -27,7 +27,7 @@
 
     <!-- Body -->
     <div class="text-gray-200 post-body">
-        {{ $post->body }}
+        {{ substr($post->body, 0, 100) }}{{ strlen($post->body) > 100 ? '...' : '' }}
     </div>
 
     <!-- Categories -->

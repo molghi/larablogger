@@ -53,7 +53,7 @@
   <div class="flex flex-col sm:flex-row sm:space-x-6 space-y-6 sm:space-y-0">
     <!-- Cover Image -->
     <div class="flex-1">
-        <label for="cover_image" class="cursor-pointer block text-sm font-medium text-gray-700 dark:text-blue-400">Choose Cover Image (optional)</label>
+        <label for="cover_image" class="cursor-pointer block text-sm font-medium text-gray-700 dark:text-blue-400">Choose {{$mode==='edit' ? 'New' : ''}} Cover Image (optional)</label>
         <input name="cover_image" type="file" id="cover_image" accept="image/png, image/jpeg" class="mt-1 block w-full text-gray-700 dark:text-gray-200 cursor-pointer">
         
         @error ('cover_image')
